@@ -8,9 +8,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
 
     },
     labor = {
@@ -19,9 +19,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     skilled_worker = {
         name = "技工",
@@ -29,9 +29,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     handicraftsmen = {
         name = "手工业者",
@@ -39,9 +39,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     staff = {
         name = "职员",
@@ -49,9 +49,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     soldier = {
         name = "士兵",
@@ -59,9 +59,9 @@ config = {
         food_require = 1,
         alcohol_require = 2,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     officer = {
         name = "军官",
@@ -69,9 +69,9 @@ config = {
         food_require = 1,
         alcohol_require = 2,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     scholar = {
         name = "学者",
@@ -79,9 +79,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     civil_servants = {
         name = "公务员",
@@ -89,9 +89,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },      
     noble = {
         name = "贵族",
@@ -99,9 +99,9 @@ config = {
         food_require = 2,
         alcohol_require = 2,
         jewelry_require = 2,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     capitalist = {
         name = "资本家",
@@ -109,9 +109,9 @@ config = {
         food_require = 2,
         alcohol_require = 2,
         jewelry_require = 2,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     monk = {
         name = "僧侣",
@@ -119,9 +119,9 @@ config = {
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
-        food_growth = 1.01,
+        food_growth = 0.03,
         alc_growth = 0.02,
-        jew_groth = 0.01,
+        jew_growth = 0.01,
     },
     farm = {
         {
@@ -609,6 +609,1557 @@ config = {
             }
         }
     },
+    brewery = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 10
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 100
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 50
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 340
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 940
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 1250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 2940
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 6250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 6440
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 31250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 13940
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 156250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 28940
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 781250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 53940
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 3906250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 116440
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "labor",
+                    value = 19531250
+                }
+            },
+            output = {
+                {
+                    name = "alcohol",
+                    value = 272690
+                }
+            }
+        }
+    },
+    factory = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 1
+                },
+                {
+                    name = "skilled_worker",
+                    value = 100
+                },
+                {
+                    name = "staff",
+                    value = 50
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 20
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 4
+                },
+                {
+                    name = "skilled_worker",
+                    value = 800
+                },
+                {
+                    name = "staff",
+                    value = 300
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 77
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 16
+                },
+                {
+                    name = "skilled_worker",
+                    value = 6400
+                },
+                {
+                    name = "staff",
+                    value = 1800
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 293
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 56
+                },
+                {
+                    name = "skilled_worker",
+                    value = 44800
+                },
+                {
+                    name = "staff",
+                    value = 9450
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 973
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 196
+                },
+                {
+                    name = "skilled_worker",
+                    value = 313600
+                },
+                {
+                    name = "staff",
+                    value = 49613
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 2653
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 588
+                },
+                {
+                    name = "skilled_worker",
+                    value = 181600
+                },
+                {
+                    name = "staff",
+                    value = 223256
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 5789
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 1470
+                },
+                {
+                    name = "skilled_worker",
+                    value = 9408000
+                },
+                {
+                    name = "staff",
+                    value = 837211
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 11081
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 2940
+                },
+                {
+                    name = "skilled_worker",
+                    value = 37632000
+                },
+                {
+                    name = "staff",
+                    value = 2511633
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 18431
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 4410
+                },
+                {
+                    name = "skilled_worker",
+                    value = 112896000
+                },
+                {
+                    name = "staff",
+                    value = 5651174
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 25781
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "capitalist",
+                    value = 6615
+                },
+                {
+                    name = "skilled_worker",
+                    value = 338688000
+                },
+                {
+                    name = "staff",
+                    value = 12715141
+                }
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 36806
+                }
+            }
+        }
+    },
+    government = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 100
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.0001
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 600
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00012
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 3600
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00014
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 18900
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00016
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 99225
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00018
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 446513
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.0002
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 1674422
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00022
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 5023266
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00024
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 11302348
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00026
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "civil_servants",
+                    value = 25430282
+                }
+            },
+            output = {
+                {
+                    name = "cash",
+                    value = 0.00028
+                }
+            }
+        }
+    },
+    handicraft = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 100
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 250
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 600
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 1000
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 3600
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 3250
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 18900
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 10900
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 99225
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 24956
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 446513
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 51003
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 1674422
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 87840
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 5023266
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 121329
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 11302348
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 152724
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 25430282
+                }
+            },
+            output = {
+                {
+                    name = "jewelry",
+                    value = 188044
+                }
+            }
+        }
+    },
+    temple = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 100
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 500
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 600
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 2000
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 3600
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 6500
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 18900
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 21800
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 99225
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 49913
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 446513
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 102006
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 1674422
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 175681
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 5023266
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 242658
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 11302348
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 305449
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "monk",
+                    value = 25430282
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 376088
+                }
+            }
+        }
+    },
+    university = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 100
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 1000
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 600
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 4000
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 3600
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 7000
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 18900
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 13120
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 99225
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 21152
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 446513
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 28098
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 1674422
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 35465
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 5023266
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 48861
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 11302348
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 61419
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "scholar",
+                    value = 25430282
+                }
+            },
+            output = {
+                {
+                    name = "RP",
+                    value = 75547
+                }
+            }
+        }
+    },
+    workshop = {
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 100
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 10
+                },
+                {
+                    name = "labor",
+                    value = 100
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 20
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 50
+                },
+                {
+                    name = "labor",
+                    value = 500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 60
+                }
+            }
+        },
+        {
+
+            input = {
+                {
+                    name = "food",
+                    value = 2500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 250
+                },
+                {
+                    name = "labor",
+                    value = 2500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 260
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 12500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 1250
+                },
+                {
+                    name = "labor",
+                    value = 12500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 660
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 62500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 6250
+                },
+                {
+                    name = "labor",
+                    value = 62500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 1660
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 312500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 31250
+                },
+                {
+                    name = "labor",
+                    value = 312500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 3660
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 1562500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 156250
+                },
+                {
+                    name = "labor",
+                    value = 1562500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 6160
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 7812500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 781250
+                },
+                {
+                    name = "labor",
+                    value = 7812500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 11160
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 39062500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 3906250
+                },
+                {
+                    name = "labor",
+                    value = 39062500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 18035
+                }
+            }
+        },
+        {
+            input = {
+                {
+                    name = "food",
+                    value = 195312500
+                }
+            },
+            pop = {
+                {
+                    name = "handicraftsmen",
+                    value = 19531250
+                },
+                {
+                    name = "labor",
+                    value = 195312500
+                }
+
+            },
+            output = {
+                {
+                    name = "IC",
+                    value = 27410
+                }
+            }
+        }
+    },
 }
 
 jobs = {"farmer","labor","skilled_worker","handicraftsmen","staff","soldier","officer","scholar","civil_servants","noble","capitalist","monk"}
@@ -617,23 +2168,23 @@ factorys = {"farm","bank","brewery","factory","government","handicraft","temple"
 
 data = {
     pop={
-        farmer = 100,
-        labor = 100,
-        skilled_worker = 100,
-        handicraftsmen = 100,
-        staff = 100,
-        soldier = 100,
-        officer = 100,
-        scholar = 100,
-        civil_servants = 100,
-        noble = 100,
-        capitalist = 100,
-        monk = 100
+        farmer = 1000,
+        labor = 1000,
+        skilled_worker = 1000,
+        handicraftsmen = 1000,
+        staff = 1000,
+        soldier = 1000,
+        officer = 1000,
+        scholar = 1000,
+        civil_servants = 1000,
+        noble = 1000,
+        capitalist = 1000,
+        monk = 1000
     },
     factory = {
         farm = {
             level = 1,
-            pop = {100,0,0}
+            pop = {100}
         },
         bank = {
             level = 1,
@@ -641,41 +2192,41 @@ data = {
         },
         brewery = {
             level = 1,
-            pop = {1,2,10}
+            pop = {10}
         },
         factory = {
             level = 1,
-            pop = {1,2,10}
+            pop = {1,100,50}
         },
         government = {
             level = 1,
-            pop = {1,2,10}
+            pop = {100}
         },
         handicraft = {
             level = 1,
-            pop = {1,2,10}
+            pop = {100}
         },
         temple = {
             level = 1,
-            pop = {1,2,10}
+            pop = {100}
         },
         university = {
             level = 1,
-            pop = {1,2,10}
+            pop = {100}
         },
         workshop = {
             level = 1,
-            pop = {1,2,10}
+            pop = {10,100}
         }
     },
     product = {
-        food=400,
+        food=10000000,
         pdtRate0 = 0,
-        alcohol=0,
+        alcohol=1000000,
         IC=0,
         cash=0,
-        jewelry=0,
-        rp=0
+        jewelry=1000000,
+        RP=0
     }
 }
 
@@ -704,43 +2255,150 @@ function MainScene:tick(dt)
 
         addOutput(output)
 
-        local outputStr = "total output"
+        local outputStr = "total output "
         for k,v in pairs(output) do
-            outputStr = outputStr .. " " .. k .. " " .. v
+            outputStr = outputStr .. " <" .. k .. " = " .. v .. ">"
         end
         print(outputStr)
 
-        -- TODO 再计算食物分配
+        -- 再计算食物分配
+        local popGens = calRequiredSupply()
 
+        -- 再根据食物的分配计算人口增长
+        local popGrowth = calPopGrowth(popGens)
 
-
-
-
-
-
-        -- TODO 再根据食物的分配计算人口增长
+        --对工作人口进行重新分配
+        reDistributeWorker()
 
         -- TODO 最后计算人口之间的转化
         
     end
 end
 
+function reDistributeWorker()
+    --将所有工厂同种人口相加得到当前工作人群总值,超出当前人口的进行减员,少于当前人口的时候,
+    --如果工厂有此类人群职位空缺,则补充此类人群到工厂的此职位中
+    --当工厂已经满载,所有工厂同种人群相加后仍未达到人口数的,认为是失业人群
+    local totalWorkedPop = {}
+    for k,v in pairs(data.factory) do
+        for i,vv in ipairs(config[k][v.level].pop) do
+            if not totalWorkedPop[vv.name] then
+                totalWorkedPop[vv.name] = data.factory[k].pop[i]
+            else
+                totalWorkedPop[vv.name] = totalWorkedPop[vv.name] + data.factory[k].pop[i]
+            end
+        end
+    end
+
+    --调整工厂人数
+    for k,v in pairs(totalWorkedPop) do
+        local change =  data.pop[k] - v
+        if change < 0 then
+            --工厂减人
+            for kk,vv in pairs(data.factory) do
+                if change == 0 then
+                        break
+                end
+                for i,iv in ipairs(config[kk][vv.level].pop) do
+                    if change == 0 then
+                        break
+                    end
+                    if iv.name == k then
+                        if vv.pop[i] > 0 then
+                            if vv.pop[i] + change > 0 then
+                                vv.pop[i] = vv.pop[i] + change
+                                print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                change = 0
+                            else
+                                change = change + vv.pop[i]
+                                print("factory[" .. kk .."] add <" .. k .. "=" .. -1 * vv.pop[i] .. ">")
+                                vv.pop[i] = 0
+                            end
+                        end
+                        break
+                    end
+                end
+            end
+        elseif change > 0 then
+            --工厂加人
+            for kk,vv in pairs(data.factory) do
+                if change == 0 then
+                    break
+                end
+                for i,iv in ipairs(config[kk][vv.level].pop) do
+                    if change == 0 then
+                        break
+                    end
+                    if iv.name == k then
+                        if vv.pop[i] < iv.value then
+                            if vv.pop[i] + change <= iv.value then
+                                vv.pop[i] = vv.pop[i] + change
+                                print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                change = 0
+                            else
+                                change = change - (iv.value - vv.pop[i])
+                                print("factory[" .. kk .."] add <" .. k .. "=" .. iv.value - vv.pop[i] .. ">")
+                                vv.pop[i] = iv.value
+                            end
+                        end
+                        break
+                    end
+                end
+            end
+        end
+    end
+end
+
 function addOutput(output)
     for k,v in pairs(output) do
-        data.product[key] = data.product[key] + v
+        data.product[k] = data.product[k] + v
     end
+end
+
+function calPopGrowth(popGens)
+    --将所有人口的粮食供应情况一一进行人口增长计算
+    local popGrowth = {}
+    for k,v in pairs(data.pop) do
+        local growth = 0
+        --该人口有获得食物分配
+        local foodSupply = popGens.food_supply[k]
+        if foodSupply then
+            local alcoholSupply = popGens.alcohol_supply[k]
+            local jewelrySupply = popGens.jewelry_supply[k]
+            --当供应率大于0.5时,食物提供的人口是正增长
+            --当供应率小于0.5时,食物提供的人口是负增长
+            popGrowth[k] = ((foodSupply - 0.5) / 0.5  * config[k].food_growth + 
+                    alcoholSupply * config[k].alc_growth + jewelrySupply * config[k].jew_growth) * data.pop[k]
+        else
+            popGrowth[k] = -1 * data.pop[k]
+        end
+    end
+
+    --添加/减少人口
+    local p = "pop add "
+    for k,v in pairs(popGrowth) do
+        data.pop[k] = data.pop[k] + v
+        p = p .. " <".. k .. "=" .. v .. ">"
+    end
+    print(p)
+
+    return popGrowth
 end
 
 function calRequiredSupply()
     local popWeights = {}   --人群所占资源分配的权重
     local totalWeight = 0   --总权重
     local foodNeedTotal = 0 
+    local alcoholNeedTotal = 0
+    local jewelryNeedTotal = 0
     local returnResult = {}
     for k,v in pairs(data.pop) do
         if v > 0 then
             popWeights[k] = v * config[k].class
             totalWeight = totalWeight + v * config[k].class
             foodNeedTotal = foodNeedTotal + v * config[k].food_require
+            alcoholNeedTotal = alcoholNeedTotal + v * config[k].alcohol_require
+            jewelryNeedTotal = jewelryNeedTotal + v * config[k].jewelry_require
         end
     end
 
@@ -750,32 +2408,89 @@ function calRequiredSupply()
         for k,v in pairs(data.pop) do
             returnResult.food_supply[k] = 1
         end
+        data.product.food = data.product.food - foodNeedTotal
     else
+        --计算food供应
+        local avgWeightFood = data.product.food / totalWeight
 
-
+        for k,v in pairs(popWeights) do
+            local genFood = avgWeightFood * v / data.pop[k]  --每个人分到的粮食 = 每份权重分到的粮食 * 权重数 / 人群人口数
+            returnResult.food_supply[k] = genFood / config[k].food_require --粮食供应比率 = 每个人分到的粮食 / 每个人需求的粮食
+            -- 如果粮食供应比率超过1,则供应比为1
+            -- 当粮食不够完全供应所有人群时,较高层次的人群会获得较高的权重分配,有可能会超出自身供应,
+            -- 社会地位决定了更高阶层享有更多保障 例如:当有100农民和100资本家时,农民的粮食需求是1,权重是1,
+            -- 资本家的粮食需求是2,权重是3,拥有存粮280,不足够给每个人群都满足(都满足时需要100*1 + 100*2 = 300)
+            -- 此时,资本家和农民通过权重分配粮食:农民分配到的粮食=100 * 1 / (100 * 1 + 100 * 3) * 280 = 70
+            -- 资本家分配到的粮食= 100 * 3 / (100 * 1 + 100 * 3) * 280 = 210.但是100资本家的全部需求粮食仅需要200
+            -- 多出的10粮食将不会消耗,也不会流通到农民群体中去,这是地位的占有性。
+            if returnResult.food_supply[k] > 1 then
+                returnResult.food_supply[k] = 1
+            end
+            data.product.food = data.product.food - returnResult.food_supply[k] * config[k].food_require * data.pop[k]
+        end
     end
 
+    returnResult.alcohol_supply = {}
+    --如果酒精满足需求,则所有人的酒精供应为100%
+    if data.product.alcohol >= alcoholNeedTotal then
+        for k,v in pairs(data.pop) do
+            returnResult.alcohol_supply[k] = 1
+        end
+        data.product.alcohol = data.product.alcohol - alcoholNeedTotal
+    else
+        --计算alcohol供应
+        local avgWeightAlcohol = data.product.alcohol / totalWeight
 
-    
-
-
-    --计算food供应
-    local avgWeightFood = data.product.food / totalWeight
-
-    local popFoodAvgSupplys = {}
-    for k,v in pairs(popWeights) do
-        popFoodAvgSupplys[k] = avgWeightFood * v / data.pop[k]
-
-
+        for k,v in pairs(popWeights) do
+            local genAlcohol = avgWeightAlcohol * v / data.pop[k]  
+            returnResult.alcohol_supply[k] = genAlcohol / config[k].alcohol_require 
+            if returnResult.alcohol_supply[k] > 1 then
+                returnResult.alcohol_supply[k] = 1
+            end
+            data.product.alcohol = data.product.alcohol - returnResult.alcohol_supply[k] * config[k].alcohol_require * data.pop[k]
+        end
     end
 
-    --计算alcohol供应
+    returnResult.jewelry_supply = {}
+    --如果珠宝满足需求,则所有人的珠宝供应为100%
+    if data.product.jewelry >= jewelryNeedTotal then
+        for k,v in pairs(data.pop) do
+            returnResult.jewelry_supply[k] = 1
+        end
+        data.product.jewelry = data.product.jewelry - jewelryNeedTotal
+    else
+        --计算alcohol供应
+        local avgWeightJewelry = data.product.jewelry / totalWeight
 
+        for k,v in pairs(popWeights) do
+            local genJewelry = avgWeightJewelry * v / data.pop[k]  
+            returnResult.jewelry_supply[k] = genJewelry / config[k].jewelry_require 
+            if returnResult.jewelry_supply[k] > 1 then
+                returnResult.jewelry_supply[k] = 1
+            end
+            data.product.jewelry = data.product.jewelry - returnResult.jewelry_supply[k] * config[k].jewelry_require * data.pop[k]
+        end
+    end
 
-    --计算珠宝供应
+    local x = "food supply "
+    for k,v in pairs(returnResult.food_supply) do
+        x = x .. "<" .. k .."=" .. v .. ">"
+    end
+    print(x)
 
+    local y = "alcohol supply "
+    for k,v in pairs(returnResult.alcohol_supply) do
+        y = y .. "<" .. k .."=" .. v .. ">"
+    end
+    print(y)
 
+    local z = "jewelry supply "
+    for k,v in pairs(returnResult.jewelry_supply) do
+        z = z .. "<" .. k .."=" .. v .. ">"
+    end
+    print(z)
 
+    return returnResult
 end
 
 function calOutput(key)
@@ -800,7 +2515,7 @@ function calOutput(key)
                     rate = math.min(rate, r)
                 end
             else 
-                return 0
+                return nil
             end 
         end
         for i,v in ipairs(c[f.level].output) do
@@ -809,6 +2524,11 @@ function calOutput(key)
             out[i].value = v.value * rate
         end
     end
+    local p = "factory["..key .. "]"
+    for i,v in ipairs(out) do
+        p = p .. " output <" .. v.name .."=" .. v.value .. ">"
+    end
+    print(p)
     return out
 end
 
