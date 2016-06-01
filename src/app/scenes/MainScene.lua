@@ -6,8 +6,8 @@ config = {
         name = "农民",
         class = 1,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -17,8 +17,8 @@ config = {
         name = "劳工",
         class = 1,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -27,8 +27,8 @@ config = {
         name = "技工",
         class = 1,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -37,8 +37,8 @@ config = {
         name = "手工业者",
         class = 2,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -47,8 +47,8 @@ config = {
         name = "职员",
         class = 1,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -57,8 +57,8 @@ config = {
         name = "士兵",
         class = 1,
         food_require = 1,
-        alcohol = 2,
-        jewelry = 1,
+        alcohol_require = 2,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -67,8 +67,8 @@ config = {
         name = "军官",
         class = 2,
         food_require = 1,
-        alcohol = 2,
-        jewelry = 1,
+        alcohol_require = 2,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -77,8 +77,8 @@ config = {
         name = "学者",
         class = 2,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -87,8 +87,8 @@ config = {
         name = "公务员",
         class = 2,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -97,8 +97,8 @@ config = {
         name = "贵族",
         class = 3,
         food_require = 2,
-        alcohol = 2,
-        jewelry = 2,
+        alcohol_require = 2,
+        jewelry_require = 2,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -107,8 +107,8 @@ config = {
         name = "资本家",
         class = 3,
         food_require = 2,
-        alcohol = 2,
-        jewelry = 2,
+        alcohol_require = 2,
+        jewelry_require = 2,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -117,8 +117,8 @@ config = {
         name = "僧侣",
         class = 2,
         food_require = 1,
-        alcohol = 1,
-        jewelry = 1,
+        alcohol_require = 1,
+        jewelry_require = 1,
         food_growth = 1.01,
         alc_growth = 0.02,
         jew_groth = 0.01,
@@ -669,8 +669,13 @@ data = {
         }
     },
     product = {
-        food = 400,
-        pdtRate0 = 0
+        food=400,
+        pdtRate0 = 0,
+        alcohol=0,
+        IC=0,
+        cash=0,
+        jewelry=0,
+        rp=0
     }
 }
 
@@ -697,6 +702,8 @@ function MainScene:tick(dt)
             end
         end
 
+        addOutput(output)
+
         local outputStr = "total output"
         for k,v in pairs(output) do
             outputStr = outputStr .. " " .. k .. " " .. v
@@ -705,11 +712,70 @@ function MainScene:tick(dt)
 
         -- TODO 再计算食物分配
 
+
+
+
+
+
+
         -- TODO 再根据食物的分配计算人口增长
 
         -- TODO 最后计算人口之间的转化
         
     end
+end
+
+function addOutput(output)
+    for k,v in pairs(output) do
+        data.product[key] = data.product[key] + v
+    end
+end
+
+function calRequiredSupply()
+    local popWeights = {}   --人群所占资源分配的权重
+    local totalWeight = 0   --总权重
+    local foodNeedTotal = 0 
+    local returnResult = {}
+    for k,v in pairs(data.pop) do
+        if v > 0 then
+            popWeights[k] = v * config[k].class
+            totalWeight = totalWeight + v * config[k].class
+            foodNeedTotal = foodNeedTotal + v * config[k].food_require
+        end
+    end
+
+    returnResult.food_supply = {}
+    --如果食物满足需求,则所有人的食物供应为100%
+    if data.product.food >= foodNeedTotal then
+        for k,v in pairs(data.pop) do
+            returnResult.food_supply[k] = 1
+        end
+    else
+
+
+    end
+
+
+    
+
+
+    --计算food供应
+    local avgWeightFood = data.product.food / totalWeight
+
+    local popFoodAvgSupplys = {}
+    for k,v in pairs(popWeights) do
+        popFoodAvgSupplys[k] = avgWeightFood * v / data.pop[k]
+
+
+    end
+
+    --计算alcohol供应
+
+
+    --计算珠宝供应
+
+
+
 end
 
 function calOutput(key)
