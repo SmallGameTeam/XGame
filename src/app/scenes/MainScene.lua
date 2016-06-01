@@ -686,7 +686,6 @@ function MainScene:tick(dt)
         print(lastCalTime)
         lastCalTime = lastCalTime + 3;
         -- 先计算工厂的产出
-        -- 先计算最小产出率
         local output = {}
         for _,v in ipairs(factorys) do
             local o = calOutput(v) 
@@ -703,30 +702,17 @@ function MainScene:tick(dt)
             outputStr = outputStr .. " " .. k .. " " .. v
         end
         print(outputStr)
-        -- local output = data.factory.farm.pop1 / config.farm.pop[data.factory.farm.level].pop1
-        -- if config.farm.pop[data.factory.farm.level].pop2 then
-        --     local min = data.factory.farm.pop1 / config.farm.pop[data.factory.farm.level].pop1
-        -- end
 
-        -- -- TODO  cal the growth
-        -- local totalPop = 0
-        -- local totalFoodRequire = 0
-        -- for _,v in pairs(jobs) do
-        --     local pop = data.pop[v]
-        --     if pop then 
-        --         totalPop = totalPop + pop
-        --         --计算出所有人口需求的食物
-        --         totalFoodRequire = totalFoodRequire + config[v].food_require * pop
-        --     end
-        -- end
+        -- TODO 再计算食物分配
 
-        -- if data.product.food > totalFoodRequire then 
-        -- end
+        -- TODO 再根据食物的分配计算人口增长
+
+        -- TODO 最后计算人口之间的转化
+        
     end
 end
 
 function calOutput(key)
-    print(key)
     local rate = 0
     local f = data.factory[key]
     local c = config[key]
