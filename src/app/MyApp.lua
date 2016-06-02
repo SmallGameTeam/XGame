@@ -12,7 +12,7 @@ end
 function MyApp:run()
     cc.FileUtils:getInstance():addSearchPath("res/")
     display.addSpriteFrames("AllSprites.plist", "AllSprites.png")
-    self:enterScene("MainScene")
+    self:enterScene("FirstScene")
 end
 
 return MyApp
