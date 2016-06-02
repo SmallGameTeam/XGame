@@ -1,10 +1,11 @@
 local UILayer = require("app.layers.UILayer")
 import("..includes.functions")
 
+--数值配置
 config = {
     farmer = {
         name = "农民",
-        class = 1,
+        class = 1, --权重比
         food_require = 1,
         alcohol_require = 1,
         jewelry_require = 1,
@@ -123,20 +124,26 @@ config = {
         alc_growth = 0.02,
         jew_growth = 0.01,
     },
+    --农场
     farm = {
+        -- level 1
         {
+            --升级所需资源
             input = {
                 {
                     name = "food",
                     value = 100
                 }
             },
+            --最大工作人口
             pop = {
+                --pop1
                 {
                     name = "farmer",
                     value = 100
                 }
             },
+            --最大产出
             output = {
                 {
                     name = "food",
@@ -145,6 +152,7 @@ config = {
             }
             
         },
+        -- level 2
         {
             input = {
                 {
@@ -335,14 +343,17 @@ config = {
                 }
             },
             pop = {
+                --pop1
                 {
                     name = "capitalist",
                     value = 1
                 },
+                --pop2
                 {
                     name = "scholar",
                     value = 2
                 },
+                --pop3
                 {
                     name = "staff",
                     value = 10
@@ -2165,8 +2176,9 @@ config = {
 jobs = {"farmer","labor","skilled_worker","handicraftsmen","staff","soldier","officer","scholar","civil_servants","noble","capitalist","monk"}
 factorys = {"farm","bank","brewery","factory","government","handicraft","temple","university","workshop"}
 
-
+--玩家数据
 data = {
+    --人群
     pop={
         farmer = 1000,
         labor = 1000,
@@ -2181,6 +2193,7 @@ data = {
         capitalist = 1000,
         monk = 1000
     },
+    --工厂
     factory = {
         farm = {
             level = 1,
@@ -2188,7 +2201,7 @@ data = {
         },
         bank = {
             level = 1,
-            pop = {1,2,10}
+            pop = {1,2,10}  --工人数组 第一位代表config中的pop的第一个人群的数量 第二位代表第二个
         },
         brewery = {
             level = 1,
@@ -2219,6 +2232,7 @@ data = {
             pop = {10,100}
         }
     },
+    --玩家持有产品
     product = {
         food=10000000,
         pdtRate0 = 0,
@@ -2235,7 +2249,7 @@ local lastCalTime = os.time()
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
-
+-- 主要计算逻辑 暂定每3秒执行一次
 function MainScene:tick(dt)
     local nowTime = os.time()
     if nowTime - lastCalTime > 3 then
@@ -2244,6 +2258,7 @@ function MainScene:tick(dt)
         -- 先计算工厂的产出
         local output = {}
         for _,v in ipairs(factorys) do
+            --calOutput 计算工厂的产出
             local o = calOutput(v) 
             for _,vv in ipairs(o) do
                 if not output[vv.name] then
@@ -2253,6 +2268,7 @@ function MainScene:tick(dt)
             end
         end
 
+        --将工厂的产出添加到持有资源data.product
         addOutput(output)
 
         local outputStr = "total output "
