@@ -3,16 +3,20 @@ local TopShowNode = class("TopShowNode", function()
     return node
 end)
 
-TopShowNode.DEFAULT_WIDTH = 120
+TopShowNode.DEFAULT_WIDTH = 110
 TopShowNode.DEFAULT_HEIGHT = 80
-TopShowNode.BG_IMAGE = "PinkScale9Block.png"
 TopShowNode.COLUMN_PADDING = 5
 TopShowNode.ROW_PADDING = 5
-TopShowNode.TITLE_IMAGE_HEADER = "title_header_"
+
 TopShowNode.TITLE_IMAGE_WIDTH = 20
 TopShowNode.TITLE_IMAGE_HEIGHT = 20
-
 TopShowNode.DEFAULT_COLUMN_HEIGHT = 20
+
+TopShowNode.TITLE_IMAGE_HEADER = "title_header_"
+TopShowNode.BG_IMAGE = "PinkScale9Block.png"
+TopShowNode.ARROW_UP = "arrow_up.png"
+TopShowNode.ARROW_NO_CHANGE = "arrow_no_change.png"
+TopShowNode.ARROW_DOWN = "arrow_down.png"
 
 function TopShowNode:ctor(params)
 	self.params = params
@@ -30,7 +34,7 @@ function TopShowNode:posInit()
 	self.titleImage_:setAnchorPoint(cc.p(0,0))
 	self.titleImage_:setContentSize(TopShowNode.TITLE_IMAGE_WIDTH, TopShowNode.TITLE_IMAGE_HEIGHT)
 	self.titleImage_:pos(TopShowNode.COLUMN_PADDING, (TopShowNode.DEFAULT_HEIGHT - self.titleImage_:getContentSize().height) / 2)
-	self.titleImage_:setScale(self.titleImage_:getContentSize().width/27,self.titleImage_:getContentSize().height / 40)
+	self.titleImage_:setScale(self.titleImage_:getContentSize().width/64,self.titleImage_:getContentSize().height / 64)
 
 	self.titleLabel_ = cc.ui.UILabel.new({text = "", size = 16, color = display.COLOR_WHITE,align=display.RIGHT_TO_LEFT}):addTo(self,1)
 	self.titleLabel_:setAnchorPoint(cc.p(0,0))
@@ -43,11 +47,11 @@ function TopShowNode:posInit()
 	self.amountLabel_:pos(self.titleLabel_:getPositionX() , TopShowNode.DEFAULT_HEIGHT - 2 * TopShowNode.DEFAULT_COLUMN_HEIGHT  -  2 * TopShowNode.ROW_PADDING)
 	self.amountLabel_:size(TopShowNode.DEFAULT_WIDTH - self.titleImage_:getContentSize().width - 3 * TopShowNode.COLUMN_PADDING, TopShowNode.DEFAULT_COLUMN_HEIGHT)
 
-	self.amountChangeArrow_ = display.newSprite("arrow_up.png"):addTo(self,1)
+	self.amountChangeArrow_ = display.newSprite(TopShowNode.ARROW_UP):addTo(self,1)
 	self.amountChangeArrow_:setAnchorPoint(cc.p(0,0))
-	self.amountChangeArrow_:setContentSize(TopShowNode.DEFAULT_COLUMN_HEIGHT / 2, TopShowNode.DEFAULT_COLUMN_HEIGHT / 2)
+	self.amountChangeArrow_:setContentSize(TopShowNode.DEFAULT_COLUMN_HEIGHT, TopShowNode.DEFAULT_COLUMN_HEIGHT)
 	self.amountChangeArrow_:pos(self.titleLabel_:getPositionX() , TopShowNode.ROW_PADDING)
-	self.amountChangeArrow_:setScale(self.amountChangeArrow_:getContentSize().width/27,self.amountChangeArrow_:getContentSize().height /40)
+	self.amountChangeArrow_:setScale(self.amountChangeArrow_:getContentSize().width/32,self.amountChangeArrow_:getContentSize().height /32)
 
 	self.amountChangeLabel_ = cc.ui.UILabel.new({text = "", size = 16, color = display.COLOR_GREEN,align=display.RIGHT_TO_LEFT}):addTo(self,1)
 	self.amountChangeLabel_:setAnchorPoint(cc.p(0,0))
@@ -65,12 +69,15 @@ function TopShowNode:setAmountLabel_(amount,amountChange)
 	if amountChange < 0 then
 		self.amountLabel_:setColor(display.COLOR_RED)
 		self.amountChangeLabel_:setColor(display.COLOR_RED)
+		self.amountChangeArrow_:setTexture(TopShowNode.ARROW_DOWN)
 	elseif  amountChange == 0 then
 		self.amountLabel_:setColor(display.COLOR_WHITE)
 		self.amountChangeLabel_:setColor(display.COLOR_WHITE)
+		self.amountChangeArrow_:setTexture(TopShowNode.ARROW_NO_CHANGE)
 	else
 		self.amountLabel_:setColor(display.COLOR_GREEN)
 		self.amountChangeLabel_:setColor(display.COLOR_GREEN)
+		self.amountChangeArrow_:setTexture(TopShowNode.ARROW_UP)
 	end
 end
 
