@@ -61,8 +61,8 @@ function FirstScene:ctor()
 end
 
 function FirstScene:onEnter()
-    --self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.tick))
-    --self:scheduleUpdate()
+    self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.tick))
+    self:scheduleUpdate()
     local tags = {}
     for k,v in pairs(data.product) do
         table.insert(tags, k)
@@ -74,8 +74,6 @@ function FirstScene:onEnter()
         nod:pos(TopShowNode.COLUMN_PADDING * i + (i - 1) * TopShowNode.DEFAULT_WIDTH, display.top - 10 - TopShowNode.DEFAULT_HEIGHT)
         nod:refresh({amount=1000,amountChange=-1000})
     end
-    --self.popShowArea_ = TopShowNode.new({title="pop"}):addTo(self.uiLayer)
-    --self.popShowArea_:pos(10, display.top - 10 - TopShowNode.DEFAULT_HEIGHT)
 end
 
 function FirstScene:showPop()
