@@ -63,5 +63,18 @@ data = {
         cash=0,
         jewelry=1000000,
         RP=0
+    },
+    --计算历史记录
+    history = {
+        {
+            pop = {
+
+            },
+            factory = {
+                farm = {
+                    
+                }
+            }
+        }
     }
 }

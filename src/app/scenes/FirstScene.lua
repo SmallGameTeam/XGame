@@ -2,6 +2,7 @@ import("..includes.UserDataFunction")
 import("..config.Config")
 import("..config.InitData")
 local TopShowNode = require("app.ui.TopShowNode")
+local FactoryShowNode = require("app.ui.FactoryShowNode")
 
 local lastCalTime = os.time()
 
@@ -74,6 +75,50 @@ function FirstScene:onEnter()
         nod:pos(TopShowNode.COLUMN_PADDING * i + (i - 1) * TopShowNode.DEFAULT_WIDTH, display.top - 10 - TopShowNode.DEFAULT_HEIGHT)
         nod:refresh({amount=1000,amountChange=-1000})
     end
+
+    -- self.popListView = cc.ui.UIListView.new({
+    --     direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+    --     -- bg="BlueBlock.png",
+    --     -- bgScale9=true,
+    --     viewRect=cc.rect(10, 10, display.cx - 20, display.top - 50 - TopShowNode.DEFAULT_HEIGHT)
+    --     })
+    -- self.popListView:setAnchorPoint(cc.p(0,0))
+    -- self.popListView:addTo(self.uiLayer)
+
+    -- for i=1,6 do
+    --     local item = self.popListView:newItem()
+    --     item:setItemSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
+    --     local content = FactoryShowNode.new({title="pop"})
+    --     content:setContentSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
+    --     content:setAnchorPoint(cc.p(0,0))
+        
+    --     content:refresh({amount=1000,amountChange=-1000})
+    --     item:addContent(content)
+    --     self.popListView:addItem(item)
+    -- end
+    -- self.popListView:reload()
+
+
+    self.factoryListView = cc.ui.UIListView.new({
+        direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+        -- bg="BlueBlock.png",
+        -- bgScale9=true,
+        viewRect=cc.rect(display.cx + 10, 10, display.cx - 20, display.top - 50 - TopShowNode.DEFAULT_HEIGHT)
+        })
+    self.factoryListView:setAnchorPoint(cc.p(0,0))
+    self.factoryListView:addTo(self.uiLayer)
+
+    for k,v in pairs(data.factory) do
+        local item = self.factoryListView:newItem()
+        item:setItemSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
+        local content = FactoryShowNode.new({title=k})
+        content:setContentSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
+        content:setAnchorPoint(cc.p(0,0))
+        item:addContent(content)
+        self.factoryListView:addItem(item)
+        content:refresh(k,v)
+    end
+    self.factoryListView:reload()
 end
 
 function FirstScene:showPop()

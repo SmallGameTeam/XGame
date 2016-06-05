@@ -1120,7 +1120,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.0001
+                    value = 10
                 }
             }
         },
@@ -1140,7 +1140,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00012
+                    value = 20
                 }
             }
         },
@@ -1161,7 +1161,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00014
+                    value = 50
                 }
             }
         },
@@ -1181,7 +1181,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00016
+                    value = 100
                 }
             }
         },
@@ -1201,7 +1201,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00018
+                    value = 150
                 }
             }
         },
@@ -1221,7 +1221,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.0002
+                    value = 250
                 }
             }
         },
@@ -1241,7 +1241,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00022
+                    value = 800
                 }
             }
         },
@@ -1261,7 +1261,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00024
+                    value = 1000
                 }
             }
         },
@@ -1281,7 +1281,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00026
+                    value = 2000
                 }
             }
         },
@@ -1301,7 +1301,7 @@ config = {
             output = {
                 {
                     name = "cash",
-                    value = 0.00028
+                    value = 5000
                 }
             }
         }

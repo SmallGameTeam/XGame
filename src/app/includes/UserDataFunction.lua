@@ -223,23 +223,9 @@ function calOutput(key,data,config)
     local out = {}
     local rate = 0
     if f and c then 
-        for i,v in ipairs(c[f.level].pop) do
-            if f.pop[i] > 0 then
-                local r = f.pop[i] / v.value
-                if r > 1 then 
-                    r=1 
-                    f.pop[i] = v.value
-                end
-                
-                if rate == 0 then
-                    rate = r
-                else
-                    -- TODO different factory has different cal function
-                    rate = math.min(rate, r)
-                end
-            else 
-                return nil
-            end 
+        rate = calOutputRate(c, f)
+        if rate == nil then
+            return nil
         end
         for i,v in ipairs(c[f.level].output) do
             out[i] = {}
@@ -253,4 +239,40 @@ function calOutput(key,data,config)
     end
     print(p)
     return out
+end
+
+function calOutputRate(c,f)
+    local rate = 0
+    for i,v in ipairs(c[f.level].pop) do
+        if f.pop[i] > 0 then
+            local r = f.pop[i] / v.value
+            if r > 1 then 
+                r=1 
+                f.pop[i] = v.value
+            end
+                
+            if rate == 0 then
+                rate = r
+            else
+            -- TODO different factory has different cal function
+                rate = math.min(rate, r)
+            end
+        else 
+            return nil
+        end 
+    end
+    return rate
+end
+
+function getIntPart(x)
+    if x <= 0 then
+        return math.ceil(x)
+    end
+
+    local y = math.ceil(x)
+    if y == x then
+        return y
+    else
+        return y - 1
+    end
 end
