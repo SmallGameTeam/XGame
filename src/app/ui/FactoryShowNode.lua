@@ -29,6 +29,10 @@ function FactoryShowNode:ctor(params)
 	self:posInit()
 end
 
+function FactoryShowNode:getTitle()
+	return self.params.title
+end
+
 function FactoryShowNode:posInit()
 	self:setContentSize(FactoryShowNode.DEFAULT_WIDTH,FactoryShowNode.DEFAULT_HEIGHT)
 	self.bgImage_ = display.newScale9Sprite(FactoryShowNode.BG_IMAGE):addTo(self,0)
@@ -147,7 +151,6 @@ function FactoryShowNode:upLevel()
 end
 
 function FactoryShowNode:downLevel()
-	print("FactoryShowNode:downLevel")
 	data.factory[self.params.title].level = data.factory[self.params.title].level - 1
 	self:refresh(self.params.title,data.factory[self.params.title])
 end

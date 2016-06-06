@@ -1,4 +1,4 @@
-function reDistributeWorker(data,config)
+function reDistributeWorker(data,config,his)
     --将所有工厂同种人口相加得到当前工作人群总值,超出当前人口的进行减员,少于当前人口的时候,
     --如果工厂有此类人群职位空缺,则补充此类人群到工厂的此职位中
     --当工厂已经满载,所有工厂同种人群相加后仍未达到人口数的,认为是失业人群
@@ -19,8 +19,9 @@ function reDistributeWorker(data,config)
         if change < 0 then
             --工厂减人
             for kk,vv in pairs(data.factory) do
+                his.factory[kk].pop = {}
                 if change == 0 then
-                        break
+                    break
                 end
                 for i,iv in ipairs(config[kk][vv.level].pop) do
                     if change == 0 then
@@ -31,10 +32,12 @@ function reDistributeWorker(data,config)
                             if vv.pop[i] + change > 0 then
                                 vv.pop[i] = vv.pop[i] + change
                                 print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                table.insert(his.factory[kk].pop, {name=k,value=change})
                                 change = 0
                             else
                                 change = change + vv.pop[i]
                                 print("factory[" .. kk .."] add <" .. k .. "=" .. -1 * vv.pop[i] .. ">")
+                                table.insert(his.factory[kk].pop, {name=k,value=-1 * vv.pop[i]})
                                 vv.pop[i] = 0
                             end
                         end
@@ -45,6 +48,9 @@ function reDistributeWorker(data,config)
         elseif change > 0 then
             --工厂加人
             for kk,vv in pairs(data.factory) do
+                if not his.factory[kk].pop then
+                    his.factory[kk].pop = {}
+                end
                 if change == 0 then
                     break
                 end
@@ -57,10 +63,12 @@ function reDistributeWorker(data,config)
                             if vv.pop[i] + change <= iv.value then
                                 vv.pop[i] = vv.pop[i] + change
                                 print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                table.insert(his.factory[kk].pop, {name=k,value=change})
                                 change = 0
                             else
                                 change = change - (iv.value - vv.pop[i])
                                 print("factory[" .. kk .."] add <" .. k .. "=" .. iv.value - vv.pop[i] .. ">")
+                                table.insert(his.factory[kk].pop, {name=k,value=-1 * vv.pop[i]})
                                 vv.pop[i] = iv.value
                             end
                         end
@@ -78,10 +86,12 @@ function addOutput(output,data)
     end
 end
 
-function calPopGrowth(popGens,data,config)
+function calPopGrowth(popGens,data,config,his)
     --将所有人口的粮食供应情况一一进行人口增长计算
     local popGrowth = {}
+    local totalPop = 0
     for k,v in pairs(data.pop) do
+        totalPop = totalPop + v
         local growth = 0
         --该人口有获得食物分配
         local foodSupply = popGens.food_supply[k]
@@ -90,25 +100,32 @@ function calPopGrowth(popGens,data,config)
             local jewelrySupply = popGens.jewelry_supply[k]
             --当供应率大于0.5时,食物提供的人口是正增长
             --当供应率小于0.5时,食物提供的人口是负增长
-            popGrowth[k] = ((foodSupply - 0.5) / 0.5  * config[k].food_growth + 
-                    alcoholSupply * config[k].alc_growth + jewelrySupply * config[k].jew_growth) * data.pop[k]
+            local rate = (foodSupply - 0.5) / 0.5  * config[k].food_growth + 
+                    alcoholSupply * config[k].alc_growth + jewelrySupply * config[k].jew_growth
+            his.pop[k].growth_rate = rate
+            popGrowth[k] = getIntPart(rate * data.pop[k])
         else
+            his.pop[k].growth_rate = -1
             popGrowth[k] = -1 * data.pop[k]
         end
     end
 
+    his.pop.pop = {}
+    his.pop.pop.add = 0
     --添加/减少人口
-    local p = "pop add "
     for k,v in pairs(popGrowth) do
         data.pop[k] = data.pop[k] + v
-        p = p .. " <".. k .. "=" .. v .. ">"
+        his.pop[k].add = v
+        his.pop.pop.add = his.pop.pop.add + v
     end
-    print(p)
+
+    his.pop.pop.growth_rate = his.pop.pop.add / totalPop
+    his.pop.pop.total = totalPop + his.pop.pop.add
 
     return popGrowth
 end
 
-function calRequiredSupply(data,config)
+function calRequiredSupply(data,config,his)
     local popWeights = {}   --人群所占资源分配的权重
     local totalWeight = 0   --总权重
     local foodNeedTotal = 0 
@@ -125,6 +142,13 @@ function calRequiredSupply(data,config)
         end
     end
 
+    foodNeedTotal = getIntPart(foodNeedTotal)
+    alcoholNeedTotal = getIntPart(alcoholNeedTotal)
+    jewelryNeedTotal = getIntPart(jewelryNeedTotal)
+
+    if not his.food then
+        his.product.food = 0
+    end
     returnResult.food_supply = {}
     --如果食物满足需求,则所有人的食物供应为100%
     if data.product.food >= foodNeedTotal then
@@ -132,6 +156,7 @@ function calRequiredSupply(data,config)
             returnResult.food_supply[k] = 1
         end
         data.product.food = data.product.food - foodNeedTotal
+        his.product.food = his.product.food - foodNeedTotal
     else
         --计算food供应
         local avgWeightFood = data.product.food / totalWeight
@@ -149,10 +174,15 @@ function calRequiredSupply(data,config)
             if returnResult.food_supply[k] > 1 then
                 returnResult.food_supply[k] = 1
             end
-            data.product.food = data.product.food - returnResult.food_supply[k] * config[k].food_require * data.pop[k]
+            local tmp = getIntPart(returnResult.food_supply[k] * config[k].food_require * data.pop[k])
+            data.product.food = data.product.food - tmp
+            his.product.food = his.product.food - tmp
         end
     end
 
+    if not his.alcohol then
+        his.product.alcohol = 0
+    end
     returnResult.alcohol_supply = {}
     --如果酒精满足需求,则所有人的酒精供应为100%
     if data.product.alcohol >= alcoholNeedTotal then
@@ -160,6 +190,7 @@ function calRequiredSupply(data,config)
             returnResult.alcohol_supply[k] = 1
         end
         data.product.alcohol = data.product.alcohol - alcoholNeedTotal
+        his.product.alcohol = his.product.alcohol - alcoholNeedTotal
     else
         --计算alcohol供应
         local avgWeightAlcohol = data.product.alcohol / totalWeight
@@ -170,10 +201,15 @@ function calRequiredSupply(data,config)
             if returnResult.alcohol_supply[k] > 1 then
                 returnResult.alcohol_supply[k] = 1
             end
-            data.product.alcohol = data.product.alcohol - returnResult.alcohol_supply[k] * config[k].alcohol_require * data.pop[k]
+            local tmp = getIntPart(returnResult.alcohol_supply[k] * config[k].alcohol_require * data.pop[k])
+            data.product.alcohol = data.product.alcohol - tmp
+            his.product.alcohol = his.product.alcohol - tmp
         end
     end
 
+    if not his.jewelry then
+        his.product.jewelry = 0
+    end
     returnResult.jewelry_supply = {}
     --如果珠宝满足需求,则所有人的珠宝供应为100%
     if data.product.jewelry >= jewelryNeedTotal then
@@ -181,6 +217,7 @@ function calRequiredSupply(data,config)
             returnResult.jewelry_supply[k] = 1
         end
         data.product.jewelry = data.product.jewelry - jewelryNeedTotal
+        his.product.jewelry = his.product.jewelry - jewelryNeedTotal
     else
         --计算alcohol供应
         local avgWeightJewelry = data.product.jewelry / totalWeight
@@ -191,27 +228,11 @@ function calRequiredSupply(data,config)
             if returnResult.jewelry_supply[k] > 1 then
                 returnResult.jewelry_supply[k] = 1
             end
-            data.product.jewelry = data.product.jewelry - returnResult.jewelry_supply[k] * config[k].jewelry_require * data.pop[k]
+            local tmp = getIntPart(returnResult.jewelry_supply[k] * config[k].jewelry_require * data.pop[k])
+            data.product.jewelry = data.product.jewelry - tmp
+            his.product.jewelry = his.product.jewelry - tmp
         end
     end
-
-    local x = "food supply "
-    for k,v in pairs(returnResult.food_supply) do
-        x = x .. "<" .. k .."=" .. v .. ">"
-    end
-    print(x)
-
-    local y = "alcohol supply "
-    for k,v in pairs(returnResult.alcohol_supply) do
-        y = y .. "<" .. k .."=" .. v .. ">"
-    end
-    print(y)
-
-    local z = "jewelry supply "
-    for k,v in pairs(returnResult.jewelry_supply) do
-        z = z .. "<" .. k .."=" .. v .. ">"
-    end
-    print(z)
 
     return returnResult
 end
@@ -233,11 +254,6 @@ function calOutput(key,data,config)
             out[i].value = v.value * rate
         end
     end
-    local p = "factory["..key .. "]"
-    for i,v in ipairs(out) do
-        p = p .. " output <" .. v.name .."=" .. v.value .. ">"
-    end
-    print(p)
     return out
 end
 

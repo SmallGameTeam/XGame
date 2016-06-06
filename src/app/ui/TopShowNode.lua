@@ -23,6 +23,10 @@ function TopShowNode:ctor(params)
 	self:posInit()
 end
 
+function TopShowNode:getTitle()
+	return self.params.title
+end
+
 function TopShowNode:posInit()
 	self:setContentSize(TopShowNode.DEFAULT_WIDTH,TopShowNode.DEFAULT_HEIGHT)
 	self.bgImage_ = display.newScale9Sprite(TopShowNode.BG_IMAGE):addTo(self,0)
