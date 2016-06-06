@@ -68,6 +68,7 @@ data = {
     history = {
         {
             pop = {
+                        
 
             },
             factory = {

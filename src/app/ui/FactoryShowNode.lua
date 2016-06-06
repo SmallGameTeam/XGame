@@ -97,13 +97,6 @@ function FactoryShowNode:posInit()
             -- self:downLevel()
         end):addTo(self.shortInfoNode_)
     self.detailButton_:align(display.CENTER,FactoryShowNode.DEFAULT_SHORT_INFO_WIDTH / 2, 15)
-
-
-
-	-- self.amountChangeLabel_ = cc.ui.UILabel.new({text = "", size = 16, color = display.COLOR_GREEN,align=cc.ui.TEXT_ALIGN_LEFT}):addTo(self,1)
-	-- self.amountChangeLabel_:setAnchorPoint(cc.p(0,0))
-	-- self.amountChangeLabel_:size(FactoryShowNode.DEFAULT_WIDTH - self.amountChangeArrow_:getPositionX() - FactoryShowNode.DEFAULT_COLUMN_HEIGHT - FactoryShowNode.COLUMN_PADDING, FactoryShowNode.DEFAULT_COLUMN_HEIGHT)
-	-- self.amountChangeLabel_:pos(self.amountChangeArrow_:getPositionX() + FactoryShowNode.DEFAULT_COLUMN_HEIGHT + FactoryShowNode.COLUMN_PADDING , self.amountChangeArrow_:getPositionY())
 end
 
 function FactoryShowNode:refresh(key,refreshData)
@@ -147,7 +140,6 @@ function FactoryShowNode:upLevel()
 end
 
 function FactoryShowNode:downLevel()
-	print("FactoryShowNode:downLevel")
 	data.factory[self.params.title].level = data.factory[self.params.title].level - 1
 	self:refresh(self.params.title,data.factory[self.params.title])
 end
