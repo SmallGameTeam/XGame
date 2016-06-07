@@ -31,12 +31,12 @@ function reDistributeWorker(data,config,his)
                         if vv.pop[i] > 0 then
                             if vv.pop[i] + change > 0 then
                                 vv.pop[i] = vv.pop[i] + change
-                                print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                --print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
                                 table.insert(his.factory[kk].pop, {name=k,value=change})
                                 change = 0
                             else
                                 change = change + vv.pop[i]
-                                print("factory[" .. kk .."] add <" .. k .. "=" .. -1 * vv.pop[i] .. ">")
+                                --print("factory[" .. kk .."] add <" .. k .. "=" .. -1 * vv.pop[i] .. ">")
                                 table.insert(his.factory[kk].pop, {name=k,value=-1 * vv.pop[i]})
                                 vv.pop[i] = 0
                             end
@@ -62,13 +62,13 @@ function reDistributeWorker(data,config,his)
                         if vv.pop[i] < iv.value then
                             if vv.pop[i] + change <= iv.value then
                                 vv.pop[i] = vv.pop[i] + change
-                                print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
+                                --print("factory[" .. kk .."] add <" .. k .. "=" .. change .. ">")
                                 table.insert(his.factory[kk].pop, {name=k,value=change})
                                 change = 0
                             else
                                 change = change - (iv.value - vv.pop[i])
-                                print("factory[" .. kk .."] add <" .. k .. "=" .. iv.value - vv.pop[i] .. ">")
-                                table.insert(his.factory[kk].pop, {name=k,value=-1 * vv.pop[i]})
+                                --print("factory[" .. kk .."] add <" .. k .. "=" .. iv.value - vv.pop[i] .. ">")
+                                table.insert(his.factory[kk].pop, {name=k,value=iv.value - vv.pop[i]})
                                 vv.pop[i] = iv.value
                             end
                         end

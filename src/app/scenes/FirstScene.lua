@@ -96,6 +96,48 @@ function FirstScene:tick(dt)
 
 
         -- TODO 最后计算人口之间的转化
+
+        -- 输出中间值到日志文件
+        -- 总人口变化
+        print("===========pop total add start===========")
+        print(his.pop.pop.total .. "," .. his.pop.pop.add .. "," .. his.pop.pop.growth_rate)
+        print("===========pop total add end===========")
+
+        -- 人口各自变化
+        print("===========every pop change start===========")
+        for k,v in pairs(his.pop) do
+            if k ~= "pop" then
+                print(k .. "," .. data.pop[k] .. "," .. v.add .. "," .. v.growth_rate .. "," .. v.food_supply .. "," .. v.alcohol_supply .. "," .. v.jewelry_supply)
+            end
+        end
+        print("===========every pop change end===========")
+
+        -- 工厂各自变化
+        print("===========every factory change start===========")
+        for k,v in pairs(his.factory) do
+            local factoryColumn = k .. "," .. data.factory[k].level .. ","
+            for i=1,3 do
+                if not v.pop[i] then
+                    factoryColumn = factoryColumn .. "0,"
+                else
+                    factoryColumn = factoryColumn .. v.pop[i].value .. ","
+                end
+            end
+            for i,vv in ipairs(v.output) do
+                factoryColumn = factoryColumn .. vv.value .. ","
+            end
+            print(factoryColumn)
+        end
+        print("===========every factory change end===========")
+
+         -- 工厂各自变化
+        print("===========every product change start===========")
+        for k,v in pairs(his.product) do
+            print(k .. "," .. v)
+        end
+        print("===========every product change end===========")
+
+
         
     end
 end
