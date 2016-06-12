@@ -75,7 +75,7 @@ function FirstScene:tick(dt)
 
         for i=1,#self.factoryListView.items_ do
             local content = self.factoryListView.items_[i]:getContent()
-            content:refresh(content:getTitle(),data.factory[content:getTitle()])
+            content:refresh(content:getTitle(),data.factory[content:getTitle()],his)
         end
 
         local tags = {}
@@ -207,13 +207,11 @@ function FirstScene:onEnter()
 
     for k,v in pairs(data.factory) do
         local item = self.factoryListView:newItem()
-        item:setItemSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
         local content = FactoryShowNode.new({title=k})
-        content:setContentSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
-        content:setAnchorPoint(cc.p(0,0))
+        item:setItemSize(content:getContentSize().width, content:getContentSize().height)
         item:addContent(content)
         self.factoryListView:addItem(item)
-        content:refresh(k,v)
+        content:refresh(k,v,data.history[1])
     end
     self.factoryListView:reload()
 
