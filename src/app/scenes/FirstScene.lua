@@ -3,6 +3,7 @@ import("..config.Config")
 import("..config.InitData")
 local TopShowNode = require("app.ui.TopShowNode")
 local FactoryShowNode = require("app.ui.FactoryShowNode")
+local PopShowNode = require("app.ui.PopShowNode")
 
 local lastCalTime = os.time()
 
@@ -76,6 +77,11 @@ function FirstScene:tick(dt)
         for i=1,#self.factoryListView.items_ do
             local content = self.factoryListView.items_[i]:getContent()
             content:refresh(content:getTitle(),data.factory[content:getTitle()],his)
+        end
+
+        for i=1,#self.popListView.items_ do
+            local content = self.popListView.items_[i]:getContent()
+            content:refresh(his)
         end
 
         local tags = {}
@@ -173,27 +179,24 @@ function FirstScene:onEnter()
         end
     end
 
-    -- self.popListView = cc.ui.UIListView.new({
-    --     direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
-    --     -- bg="BlueBlock.png",
-    --     -- bgScale9=true,
-    --     viewRect=cc.rect(10, 10, display.cx - 20, display.top - 50 - TopShowNode.DEFAULT_HEIGHT)
-    --     })
-    -- self.popListView:setAnchorPoint(cc.p(0,0))
-    -- self.popListView:addTo(self.uiLayer)
+    self.popListView = cc.ui.UIListView.new({
+        direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+        -- bg="BlueBlock.png",
+        -- bgScale9=true,
+        viewRect=cc.rect(10, 10, display.cx - 20, display.top - 50 - TopShowNode.DEFAULT_HEIGHT)
+        })
+    self.popListView:setAnchorPoint(cc.p(0,0))
+    self.popListView:addTo(self.uiLayer)
 
-    -- for i=1,6 do
-    --     local item = self.popListView:newItem()
-    --     item:setItemSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
-    --     local content = FactoryShowNode.new({title="pop"})
-    --     content:setContentSize(FactoryShowNode.DEFAULT_WIDTH, FactoryShowNode.DEFAULT_HEIGHT)
-    --     content:setAnchorPoint(cc.p(0,0))
-        
-    --     content:refresh({amount=1000,amountChange=-1000})
-    --     item:addContent(content)
-    --     self.popListView:addItem(item)
-    -- end
-    -- self.popListView:reload()
+    for k,v in pairs(data.pop) do
+        local item = self.popListView:newItem()
+        local content = PopShowNode.new({title=k})
+        item:setItemSize(content:getContentSize().width, content:getContentSize().height)
+        item:addContent(content)
+        self.popListView:addItem(item)
+        content:refresh(data.history[1])
+    end
+    self.popListView:reload()
 
 
     self.factoryListView = cc.ui.UIListView.new({

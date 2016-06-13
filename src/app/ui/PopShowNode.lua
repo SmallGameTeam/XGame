@@ -32,11 +32,11 @@ function PopShowNode:ctor(params)
 	--标题
     self.titleLabel_ = display.newTTFLabel({text = self.params.title, size = 16, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
     --人口总数
-	self.totalLabel_ = display.newTTFLabel({text = "人口总数:1", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
+	self.totalLabel_ = display.newTTFLabel({text = "人口总数:--", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
 	--人口增长
-	self.addLabel_ = display.newTTFLabel({text = "人口增长:1", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
+	self.addLabel_ = display.newTTFLabel({text = "人口增长:--", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
 	--增长率
-	self.addRateLabel_ = display.newTTFLabel({text = "增长率:1%", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
+	self.addRateLabel_ = display.newTTFLabel({text = "增长率:--", size = 12, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_LEFT,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(self.shortInfoNode_)
 	--详情展开按钮
 	self.showDetailButton_ = cc.ui.UIPushButton.new(PopShowNode.SHOW_DETAIL_BUTTON_IMAGE)
 		:setButtonSize(60, 20)
@@ -122,7 +122,7 @@ function PopShowNode:posInit()
 	self.addRateLabel_:align(display.BOTTOM_LEFT,PopShowNode.DEFAULT_SHORT_INFO_WIDTH / 2 - PopShowNode.COLUMN_PADDING, self.addLabel_:getPositionY())
 
 	--设置详情展示按钮
-    self.showDetailButton_:align(display.CENTER,PopShowNode.DEFAULT_SHORT_INFO_WIDTH / 2, self.outputEstimateLabel_:getPositionY() - PopShowNode.ROW_PADDING - PopShowNode.DEFAULT_COLUMN_HEIGHT / 2)
+    self.showDetailButton_:align(display.CENTER,PopShowNode.DEFAULT_SHORT_INFO_WIDTH / 2, self.addRateLabel_:getPositionY() - PopShowNode.ROW_PADDING - PopShowNode.DEFAULT_COLUMN_HEIGHT / 2)
 
     --设置详述界面
     self.detailInfoNode_:size(PopShowNode.DEFAULT_DETAIL_INFO_WIDTH,PopShowNode.DEFAULT_DETAIL_INFO_HEIGHT)
@@ -175,117 +175,59 @@ function PopShowNode:posInit()
     end
 end
 
-function PopShowNode:refresh(key,refreshData,his)
-	self.level_ = refreshData.level
-	-- 显示当前工厂等级
-	self.levelLabel_:setString("规模:" .. refreshData.level)
-	
+function PopShowNode:refresh(his)
+	-- 显示人口总数
+	self.totalLabel_:setString("人口总数:" .. data.pop[self.params.title])
 
-	-- 计算效率
-	local rate = calOutputRate(config[key], data.factory[key])
-	local showRate = string.format("%.2f", rate) * 100
-	self.outputRateLabel_:setString("效率:" .. showRate .. "%")
-
-	-- 计算预计效率
-
-	local outputString = "产出物:"
-	local outputEstimateString = "预计产出:"
-	for _,v in ipairs(config[key][refreshData.level].output) do
-		outputString = outputString .. v.name .. ","
-		outputEstimateString = outputEstimateString .. v.name .. "(" .. getIntPart(v.value * rate) .. "),"
-	end
-	self.outputLabel_:setString(string.sub(outputString, 1, -2))
-	self.outputEstimateLabel_:setString(string.sub(outputEstimateString, 1, -2))
-
-	if refreshData.level < 1 then
-		self.downButton_:setButtonEnabled(false)
-	else
-		self.downButton_:setButtonEnabled(true)
-	end
-
-	if refreshData.level >= 10 then
-		self.upButton_:setButtonEnabled(false)
-	else
-		self.upButton_:setButtonEnabled(true)
-	end
-
-	local outputActualString = "产出:--"
+	local addLabelString = "人口增长:--"
+	local addRateLabelString = "增长率:--"
+	local foodSupplyLabelString = "食物供给总量:--"
+	local foodSupplyAvgLabelString = "食物人均供给:--"
+	local alcSupplyLabelString = "酒精供给总量:--"
+	local alcSupplyAvgLabelString = "酒精人均供给:--"
+	local jewSupplyLabelString = "珠宝供给总量:--"
+	local jewSupplyAvgLabelString = "珠宝人均供给:--"
 	local pop1LabelString = "--:--"
-	local pop1LabelChangeString = "--:--"
 	local pop2LabelString = "--:--"
-	local pop2LabelChangeString = "--:--"
 	local pop3LabelString = "--:--"
-	local pop3LabelChangeString = "--:--"
+	local pop4LabelString = "--:--"
+
 	if his then
-		if his.factory and his.factory[self.params.title] and his.factory[self.params.title].output then
-			outputActualString = "实际产出:"
-			for _,v in ipairs(his.factory[self.params.title].output) do
-				outputActualString = outputActualString .. v.name .. "(" .. v.value .. "),"
-			end
-			outputActualString = string.sub(outputActualString, 1, -2)
-		end
-
-
-		if his.factory and his.factory[self.params.title] and his.factory[self.params.title].pop then
-			if config[key][refreshData.level] and config[key][refreshData.level].pop[1] then
-				pop1LabelString = config[key][refreshData.level].pop[1].name .. ":" .. refreshData.pop[1] .. "/" .. config[key][refreshData.level].pop[1].value
-				pop1LabelChangeString = "变化:"
-				local changeVal = 0
-				for _,v in ipairs(his.factory[self.params.title].pop) do
-					if v.name == config[key][refreshData.level].pop[1].name then
-						changeVal = v.value
-						
-						break
-					end
-				end
-				pop1LabelChangeString = pop1LabelChangeString .. changeVal
+		if his.pop[self.params.title] then
+			if his.pop[self.params.title].add then
+				addLabelString = "人口增长:" .. his.pop[self.params.title].add
 			end
 
-			if config[key][refreshData.level] and config[key][refreshData.level].pop[2] then
-				pop2LabelString = config[key][refreshData.level].pop[2].name .. ":" .. refreshData.pop[2] .. "/" .. config[key][refreshData.level].pop[2].value
-				pop2LabelChangeString = "变化:"
-				local changeVal = 0
-				for _,v in ipairs(his.factory[self.params.title].pop) do
-					if v.name == config[key][refreshData.level].pop[2].name then
-						changeVal = v.value
-						break
-					end
-				end
-				pop2LabelChangeString = pop2LabelChangeString .. changeVal
+			if his.pop[self.params.title].growth_rate then
+				addRateLabelString = "增长率:" .. his.pop[self.params.title].growth_rate
 			end
 
-			if config[key][refreshData.level] and config[key][refreshData.level].pop[3] then
-				pop3LabelString = config[key][refreshData.level].pop[3].name .. ":" .. refreshData.pop[3] .. "/" .. config[key][refreshData.level].pop[3].value
-				pop3LabelChangeString = "变化:"
-				local changeVal = 0
-				for _,v in ipairs(his.factory[self.params.title].pop) do
-					if v.name == config[key][refreshData.level].pop[3].name then
-						changeVal = v.value
-						break
-					end
-				end
-				pop3LabelChangeString = pop3LabelChangeString .. changeVal
+			if his.pop[self.params.title].food_supply then
+				foodSupplyAvgLabelString = "食物人均供给:" .. his.pop[self.params.title].food_supply
+			end
+
+			if his.pop[self.params.title].alcohol_supply then
+				alcSupplyAvgLabelString = "酒精人均供给:" .. his.pop[self.params.title].alcohol_supply
+			end
+
+			if his.pop[self.params.title].jewelry_supply then
+				jewSupplyAvgLabelString = "珠宝人均供给:" .. his.pop[self.params.title].jewelry_supply
 			end
 		end
 	end
-	self.actualOutputLabel_:setString(outputActualString)
+
+	self.addLabel_:setString(addLabelString)
+	self.addRateLabel_:setString(addRateLabelString)
+	self.foodSupplyLabel_:setString(foodSupplyLabelString)
+	self.foodSupplyAvgLabel_:setString(foodSupplyAvgLabelString)
+	self.alcSupplyLabel_:setString(alcSupplyLabelString)
+	self.alcSupplyAvgLabel_:setString(alcSupplyAvgLabelString)
+	self.jewSupplyLabel_:setString(jewSupplyLabelString)
+	self.jewSupplyAvgLabel_:setString(jewSupplyAvgLabelString)
 	self.pop1Label_:setString(pop1LabelString)
 	self.pop2Label_:setString(pop2LabelString)
 	self.pop3Label_:setString(pop3LabelString)
-	self.pop1ChangeLabel_:setString(pop1LabelChangeString)
-	self.pop2ChangeLabel_:setString(pop2LabelChangeString)
-	self.pop3ChangeLabel_:setString(pop3LabelChangeString)
-
-end
-
-function PopShowNode:upLevel()
-	data.factory[self.params.title].level = data.factory[self.params.title].level + 1
-	self:refresh(self.params.title,data.factory[self.params.title],data.history[1])
-end
-
-function PopShowNode:downLevel()
-	data.factory[self.params.title].level = data.factory[self.params.title].level - 1
-	self:refresh(self.params.title,data.factory[self.params.title],data.history[1])
+	self.pop4Label_:setString(pop4LabelString)
 end
 
 return PopShowNode
