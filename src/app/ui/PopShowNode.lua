@@ -115,7 +115,7 @@ function PopShowNode:posInit()
 
 	--设置人口增长
 	self.addLabel_:size(PopShowNode.DEFAULT_SHORT_INFO_WIDTH / 2 - PopShowNode.COLUMN_PADDING * 2, PopShowNode.DEFAULT_COLUMN_HEIGHT)
-	self.addLabel_:align(display.BOTTOM_LEFT,PopShowNode.COLUMN_PADDING , PopShowNode.DEFAULT_SHORT_INFO_HEIGHT - PopShowNode.ROW_PADDING * 3 - PopShowNode.DEFAULT_COLUMN_HEIGHT * 3)
+	self.addLabel_:align(display.BOTTOM_LEFT,PopShowNode.COLUMN_PADDING * 2, PopShowNode.DEFAULT_SHORT_INFO_HEIGHT - PopShowNode.ROW_PADDING * 3 - PopShowNode.DEFAULT_COLUMN_HEIGHT * 3)
 
 	--设置人口增长率
 	self.addRateLabel_:size(PopShowNode.DEFAULT_SHORT_INFO_WIDTH / 2 - PopShowNode.COLUMN_PADDING * 2, PopShowNode.DEFAULT_COLUMN_HEIGHT)
@@ -187,6 +187,7 @@ function PopShowNode:refresh(his)
 	local alcSupplyAvgLabelString = "酒精人均供给:--"
 	local jewSupplyLabelString = "珠宝供给总量:--"
 	local jewSupplyAvgLabelString = "珠宝人均供给:--"
+	local labelStrings = {"--:--","--:--","--:--","--:--"}
 	local pop1LabelString = "--:--"
 	local pop2LabelString = "--:--"
 	local pop3LabelString = "--:--"
@@ -202,16 +203,42 @@ function PopShowNode:refresh(his)
 				addRateLabelString = "增长率:" .. his.pop[self.params.title].growth_rate
 			end
 
+			if his.pop[self.params.title].food_supply_total then
+				foodSupplyLabelString = "食物供给总量:" .. his.pop[self.params.title].food_supply_total
+			end
+
 			if his.pop[self.params.title].food_supply then
 				foodSupplyAvgLabelString = "食物人均供给:" .. his.pop[self.params.title].food_supply
+			end
+
+			if his.pop[self.params.title].alcohol_supply_total then
+				alcSupplyLabelString = "酒精供给总量:" .. his.pop[self.params.title].alcohol_supply_total
 			end
 
 			if his.pop[self.params.title].alcohol_supply then
 				alcSupplyAvgLabelString = "酒精人均供给:" .. his.pop[self.params.title].alcohol_supply
 			end
 
+			if his.pop[self.params.title].jewelry_supply_total then
+				jewSupplyLabelString = "珠宝供给总量:" .. his.pop[self.params.title].jewelry_supply_total
+			end
+
 			if his.pop[self.params.title].jewelry_supply then
 				jewSupplyAvgLabelString = "珠宝人均供给:" .. his.pop[self.params.title].jewelry_supply
+			end
+
+			local index = 1
+			for k,v in pairs(data.factory) do
+				if v.level > 0 then
+					local p = config[k][v.level].pop
+					for i,vv in ipairs(p) do
+						if vv.name == self.params.title then
+							labelStrings[index] = k .. ":" .. v.pop[i]
+							index = index + 1
+							break
+						end
+					end
+				end
 			end
 		end
 	end
@@ -224,10 +251,10 @@ function PopShowNode:refresh(his)
 	self.alcSupplyAvgLabel_:setString(alcSupplyAvgLabelString)
 	self.jewSupplyLabel_:setString(jewSupplyLabelString)
 	self.jewSupplyAvgLabel_:setString(jewSupplyAvgLabelString)
-	self.pop1Label_:setString(pop1LabelString)
-	self.pop2Label_:setString(pop2LabelString)
-	self.pop3Label_:setString(pop3LabelString)
-	self.pop4Label_:setString(pop4LabelString)
+	self.pop1Label_:setString(labelStrings[1])
+	self.pop2Label_:setString(labelStrings[2])
+	self.pop3Label_:setString(labelStrings[3])
+	self.pop4Label_:setString(labelStrings[4])
 end
 
 return PopShowNode

@@ -150,10 +150,12 @@ function calRequiredSupply(data,config,his)
         his.product.food = 0
     end
     returnResult.food_supply = {}
+    returnResult.food_supply_total = {}
     --如果食物满足需求,则所有人的食物供应为100%
     if data.product.food >= foodNeedTotal then
         for k,v in pairs(data.pop) do
             returnResult.food_supply[k] = 1
+            returnResult.food_supply_total[k] = config[k].food_require * data.pop[k]
         end
         data.product.food = data.product.food - foodNeedTotal
         his.product.food = his.product.food - foodNeedTotal
@@ -175,6 +177,7 @@ function calRequiredSupply(data,config,his)
                 returnResult.food_supply[k] = 1
             end
             local tmp = getIntPart(returnResult.food_supply[k] * config[k].food_require * data.pop[k])
+            returnResult.food_supply_total[k] = tmp
             data.product.food = data.product.food - tmp
             his.product.food = his.product.food - tmp
         end
@@ -184,10 +187,12 @@ function calRequiredSupply(data,config,his)
         his.product.alcohol = 0
     end
     returnResult.alcohol_supply = {}
+    returnResult.alcohol_supply_total = {}
     --如果酒精满足需求,则所有人的酒精供应为100%
     if data.product.alcohol >= alcoholNeedTotal then
         for k,v in pairs(data.pop) do
             returnResult.alcohol_supply[k] = 1
+            returnResult.alcohol_supply_total[k] = config[k].alcohol_require * data.pop[k]
         end
         data.product.alcohol = data.product.alcohol - alcoholNeedTotal
         his.product.alcohol = his.product.alcohol - alcoholNeedTotal
@@ -202,6 +207,7 @@ function calRequiredSupply(data,config,his)
                 returnResult.alcohol_supply[k] = 1
             end
             local tmp = getIntPart(returnResult.alcohol_supply[k] * config[k].alcohol_require * data.pop[k])
+            returnResult.alcohol_supply_total[k] = tmp
             data.product.alcohol = data.product.alcohol - tmp
             his.product.alcohol = his.product.alcohol - tmp
         end
@@ -211,10 +217,12 @@ function calRequiredSupply(data,config,his)
         his.product.jewelry = 0
     end
     returnResult.jewelry_supply = {}
+    returnResult.jewelry_supply_total = {}
     --如果珠宝满足需求,则所有人的珠宝供应为100%
     if data.product.jewelry >= jewelryNeedTotal then
         for k,v in pairs(data.pop) do
             returnResult.jewelry_supply[k] = 1
+            returnResult.jewelry_supply_total[k] = config[k].jewelry_require * data.pop[k]
         end
         data.product.jewelry = data.product.jewelry - jewelryNeedTotal
         his.product.jewelry = his.product.jewelry - jewelryNeedTotal
@@ -229,6 +237,7 @@ function calRequiredSupply(data,config,his)
                 returnResult.jewelry_supply[k] = 1
             end
             local tmp = getIntPart(returnResult.jewelry_supply[k] * config[k].jewelry_require * data.pop[k])
+            returnResult.jewelry_supply_total[k] = tmp
             data.product.jewelry = data.product.jewelry - tmp
             his.product.jewelry = his.product.jewelry - tmp
         end

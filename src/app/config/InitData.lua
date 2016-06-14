@@ -74,8 +74,11 @@ data = {
         --         farmer = {
         --             growth_rate = 0.45,
         --             add = 100,
+        --             food_supply_total = 100,
         --             food_supply = 0.45,
+        --             alcohol_supply_total = 100,
         --             alcohol_supply = 0.45,
+        --             jewelry_supply_total = 100,
         --             jewelry_supply = 0.45
         --         },
         --     },
