@@ -2,6 +2,7 @@
 require("config")
 require("cocos.init")
 require("framework.init")
+ConfigMgr = require("app.config.ConfigMgr")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 

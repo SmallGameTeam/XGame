@@ -158,7 +158,6 @@ function FirstScene:ctor()
 end
 
 function FirstScene:onEnter()
-    
     local tags = {}
     for k,v in pairs(data.product) do
         table.insert(tags, k)
@@ -178,6 +177,17 @@ function FirstScene:onEnter()
             nod:refresh({amount=data.product[v],amountChange=0})
         end
     end
+
+    self.configButton = cc.ui.UIPushButton.new("Button01.png")
+        :setButtonLabel("normal", cc.ui.UILabel.new({text="Config",color=display.COLOR_WHITE,size=16,align = cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}))
+        :setButtonSize(80, 40)
+        :onButtonClicked(function(event)
+            app:enterScene("ConfigScene")
+    end):addTo(self.uiLayer)
+    -- self.configButton:size(FactoryShowNode.DEFAULT_BUTTON_WIDTH, FactoryShowNode.DEFAULT_BUTTON_HEIGHT)
+    self.configButton:align(display.BOTTOM_LEFT, display.right - 100, display.top - 60)
+    self.configButton:setButtonLabelOffset(-5,-20)
+
 
     self.popListView = cc.ui.UIListView.new({
         direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
