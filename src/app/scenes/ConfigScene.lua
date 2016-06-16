@@ -33,23 +33,21 @@ function ConfigScene:onEnter()
 		end)
 		:addTo(self.uiLayer)
 
-	self.configList = cc.ui.UIListView.new(
+	self.configList = cc.ui.UIListView.new({
 			direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
 	        -- bg="BlueBlock.png",
 	        -- bgScale9=true,
 	        viewRect=cc.rect(20, 80, display.cx - 40, display.top - 160)
-		):addTo(self.uiLayer)
+		}):addTo(self.uiLayer)
 	self.configList:setAnchorPoint(cc.p(0,0))
-    self.configList:addTo(self.uiLayer)
 
-	self.initDataList = cc.ui.UIListView.new(
+	self.initDataList = cc.ui.UIListView.new({
 			direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
 	        -- bg="BlueBlock.png",
 	        -- bgScale9=true,
 	        viewRect=cc.rect(display.cx + 20, 80, display.cx - 40, display.top - 160)
-		):addTo(self.uiLayer)
+		}):addTo(self.uiLayer)
 	self.initDataList:setAnchorPoint(cc.p(0,0))
-    self.initDataList:addTo(self.uiLayer)
 
 	self:postInit()
 	self:fillContent()
@@ -72,13 +70,43 @@ end
 
 function ConfigScene:fillContent()
 	local initData = InitDataMgr.getFullInitDataOrigin()
-	local popItem = self.initDataList.newItem()
-    local content = display.newNode()
-        item:setItemSize(content:getContentSize().width, content:getContentSize().height)
-        item:addContent(content)
-        self.popListView:addItem(item)
-        content:refresh(data.history[1])
 
+	-- init pop content
+	local popItem = self.initDataList:newItem()
+    local popContent = display.newNode()
+    popContent:setContentSize(display.cx - 40, 120)
+    popItem:setItemSize(popContent:getContentSize().width, popContent:getContentSize().height)
+    popItem:addContent(popContent)
+    self.initDataList:addItem(popItem)
+    local popEditBoxes = {}
+    local popIndex = 1
+    for k,v in pairs(initData.pop) do
+    	local l = display.newTTFLabel({text = k .. ":", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(popContent)
+    	local h = (popIndex - 1) * 20
+    	l:align(display.BOTTOM_LEFT, 10, h)
+    	local editbox = cc.ui.UIInput.new({
+	        image = display.newScale9Sprite("EditBoxBg.png"),
+	        size = cc.size(200, 20),
+	        x = 220,
+	        y = h,
+	        -- listener = function(event, editbox)
+		       --      if event == "began" then
+		       --          self:onEditBoxBegan(editbox)
+		       --      elseif event == "ended" then
+		       --          self:onEditBoxEnded(editbox)
+		       --      elseif event == "return" then
+		       --          self:onEditBoxReturn(editbox)
+		       --      elseif event == "changed" then
+		       --          self:onEditBoxChanged(editbox)
+		       --      else
+		       --          printf("EditBox event %s", tostring(event))
+		       --      end
+		       --  end
+	    }):addTo(popContent)
+	    popIndex = popIndex + 1
+    end
+
+    self.initDataList:reload()
 
 end
 
