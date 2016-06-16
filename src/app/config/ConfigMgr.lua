@@ -24,6 +24,10 @@ function ConfigMgr.setConfig(key,value)
 	config[key] = value
 end
 
+function ConfigMgr.getFullConfigCopy()
+	return clone(config)
+end
+
 function ConfigMgr.getFullConfigOrigin()
 	return config
 end

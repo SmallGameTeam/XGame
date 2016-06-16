@@ -1,6 +1,4 @@
 import("..includes.UserDataFunction")
-import("..config.Config")
-import("..config.InitData")
 local TopShowNode = require("app.ui.TopShowNode")
 local FactoryShowNode = require("app.ui.FactoryShowNode")
 local PopShowNode = require("app.ui.PopShowNode")
@@ -10,6 +8,10 @@ local lastCalTime = os.time()
 local FirstScene = class("FirstScene", function()
     return display.newScene("FirstScene")
 end)
+
+config = ConfigMgr.getFullConfigCopy()
+data = InitDataMgr.getFullInitDataCopy()
+
 -- 主要计算逻辑 暂定每3秒执行一次
 function FirstScene:tick(dt)
     local nowTime = os.time()

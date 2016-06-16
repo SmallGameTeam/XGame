@@ -42,8 +42,12 @@ function InitDataMgr.getProductInitData(key)
 	return 0
 end
 
-function InitDataMgr.getProductInitData(key,value)
+function InitDataMgr.setProductInitData(key,value)
 	initData.product[key] = value
+end
+
+function InitDataMgr.getFullInitDataCopy()
+	return clone(initData)
 end
 
 function InitDataMgr.getFullInitDataOrigin()
