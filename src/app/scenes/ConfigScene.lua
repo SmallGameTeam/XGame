@@ -69,7 +69,7 @@ function ConfigScene:postInit()
 end
 
 function ConfigScene:fillContent()
-	local initData = InitDataMgr.getFullInitDataOrigin()
+	local initData = InitDataMgr.getFullInitDataCopy()
 
 	-- init pop content
 	local popItem = self.initDataList:newItem()
@@ -206,6 +206,203 @@ function ConfigScene:fillContent()
 
     self.initDataList:reload()
 
+    local conf = ConfigMgr.getFullConfigCopy()
+
+    self.popConfigs = {}
+    self.factoryConfigs = {}
+    for k,v in pairs(conf) do
+    	-- pop
+    	if v.class then
+    		self.popConfigs[k] = v
+    	else -- factory
+    		self.factoryConfigs[k] = v
+    	end
+    end
+
+    local popConfigItem = self.configList:newItem()
+    local popConfigContent = display.newNode()
+    popConfigItem:addContent(popConfigContent)
+    popConfigItem:setItemSize(440,4360)
+    self.configList:addItem(popConfigItem)
+
+    --pop config
+	local popConfigIndex = 1
+	self.popConfigEditBoxes = {}
+    for k,v in pairs(self.popConfigs) do
+    	local p = {}
+    	local h
+    	local l
+    	local editbox
+    	for kk,vv in pairs(v) do
+    		l = display.newTTFLabel({text = kk, size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(popConfigContent)
+	    	h = (popConfigIndex - 1) * 40
+	    	l:align(display.BOTTOM_LEFT, 10, h)
+	    	editbox = cc.ui.UIInput.new({
+		        image = display.newScale9Sprite("EditBoxBg.png"),
+		        size = cc.size(200, 40),
+		    }):addTo(popConfigContent)
+		    editbox:align(display.BOTTOM_LEFT, 220, h)
+		    editbox:setText(vv)
+		    p[kk] = editbox
+		    self.popConfigEditBoxes[k] = p
+		    popConfigIndex = popConfigIndex + 1
+    	end
+
+	    l = display.newTTFLabel({text = k, size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(popConfigContent)
+	    h = (popConfigIndex - 1) * 40
+	    popConfigIndex = popConfigIndex + 1
+    	l:align(display.CENTER, (display.cx - 40) /2, h + 20)
+    end
+    popConfigContent:setContentSize(display.cx - 40, popConfigIndex * 40) 
+
+    local popConfigSaveButtonItem = self.initDataList:newItem()
+    popConfigSaveButtonItem:setItemSize(80, 40)
+    local popConfigSaveButtonContent = cc.ui.UIPushButton.new("Button01.png")
+		:setButtonLabel("normal", cc.ui.UILabel.new({text="Save",color=display.COLOR_WHITE,size=16,align = cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}))
+		:setButtonSize(80, 40)
+		:onButtonClicked(function ( event )
+			self:setConfigValue("pop")
+		end)
+	popConfigSaveButtonItem:addContent(popConfigSaveButtonContent)
+    self.configList:addItem(popConfigSaveButtonItem)
+
+    --factory config
+    local factoryConfigItem = self.configList:newItem()
+    local factoryConfigContent = display.newNode()
+    factoryConfigItem:addContent(factoryConfigContent)
+    factoryConfigItem:setItemSize(440,29600)
+    self.configList:addItem(factoryConfigItem)
+
+    local factoryConfigIndex = 1
+	self.factoryConfigEditBoxes = {}
+    for k,v in pairs(self.factoryConfigs) do
+    	self.factoryConfigEditBoxes[k] = {}
+    	local f = {}
+    	local h
+    	local l
+    	local editbox
+    	for i,vv in ipairs(v) do
+    		--pop
+    		local pop = {}
+    		for ii,vvv in ipairs(vv.pop) do
+    			local popV = {}
+    			l = display.newTTFLabel({text = "pop" .. ii .. ".name:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.name)
+			    popV.name = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    l = display.newTTFLabel({text = "pop" .. ii .. ".value:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.value)
+			    popV.value = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    pop[ii] = popV
+			    f.pop = pop
+    		end
+    		self.factoryConfigEditBoxes[k][i] = f
+			
+    		--input
+    		local input = {}
+    		for ii,vvv in ipairs(vv.input) do
+    			local inputV = {}
+    			l = display.newTTFLabel({text = "input" .. ii .. ".name:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.name)
+			    inputV.name = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    l = display.newTTFLabel({text = "input" .. ii .. ".value:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.value)
+			    inputV.value = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    input[ii] = inputV
+			    f.input = input
+    		end
+
+    		--output
+    		local output = {}
+    		for ii,vvv in ipairs(vv.output) do
+    			local outputV = {}
+    			l = display.newTTFLabel({text = "output" .. ii .. ".name:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.name)
+			    outputV.name = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    l = display.newTTFLabel({text = "output" .. ii .. ".value:", size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+		    	h = (factoryConfigIndex - 1) * 40
+		    	l:align(display.BOTTOM_LEFT, 10, h)
+		    	editbox = cc.ui.UIInput.new({
+			        image = display.newScale9Sprite("EditBoxBg.png"),
+			        size = cc.size(200, 40),
+			    }):addTo(factoryConfigContent)
+			    editbox:align(display.BOTTOM_LEFT, 220, h)
+			    editbox:setText(vvv.value)
+			    outputV.value = editbox
+			    factoryConfigIndex = factoryConfigIndex + 1
+
+			    output[ii] = outputV
+			    f.output = output
+    		end
+    		l = display.newTTFLabel({text = "level:" .. i, size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+	    	h = (factoryConfigIndex - 1) * 40
+	    	l:align(display.BOTTOM_LEFT, 10, h)
+		    factoryConfigIndex = factoryConfigIndex + 1
+    	end
+
+	    l = display.newTTFLabel({text = k, size = 20, color = display.COLOR_WHITE,align=cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}):addTo(factoryConfigContent)
+	    h = (factoryConfigIndex - 1) * 40
+	    factoryConfigIndex = factoryConfigIndex + 1
+    	l:align(display.CENTER, (display.cx - 40) /2, h + 20)
+    end
+    factoryConfigContent:setContentSize(display.cx - 40, factoryConfigIndex * 40)
+
+    local factoryConfigSaveButtonItem = self.initDataList:newItem()
+    factoryConfigSaveButtonItem:setItemSize(80, 40)
+    local factoryConfigSaveButtonContent = cc.ui.UIPushButton.new("Button01.png")
+		:setButtonLabel("normal", cc.ui.UILabel.new({text="Save",color=display.COLOR_WHITE,size=16,align = cc.ui.TEXT_ALIGN_CENTER,valign=cc.ui.TEXT_VALIGN_CENTER}))
+		:setButtonSize(80, 40)
+		:onButtonClicked(function ( event )
+			self:setConfigValue("factory")
+		end)
+	factoryConfigSaveButtonItem:addContent(factoryConfigSaveButtonContent)
+    self.configList:addItem(factoryConfigSaveButtonItem)
+
+    self.configList:reload()
 end
 
 function ConfigScene:onExit()
@@ -240,6 +437,80 @@ function ConfigScene:setInitDataValue(blockName)
 				value.pop[i] = tonumber(text)
 			end
 			InitDataMgr.setFactoryInitData(k,value)
+		end
+	end
+end
+
+function ConfigScene:setConfigValue(blockName)
+	if blockName == "pop" then
+		for k,v in pairs(self.popConfigEditBoxes) do
+			local value = {}
+			local text
+			local toN
+			for kk,vv in pairs(v) do
+				text = string.trim(vv:getText())
+				toN = tonumber(text)
+				if toN then
+					value[kk] = toN
+				else
+					value[kk] = text
+				end
+			end
+			ConfigMgr.setConfig(k,value)
+		end
+	end
+
+	if blockName == "factory" then
+		for k,v in pairs(self.factoryConfigEditBoxes) do
+			local value = {}
+			for i,vv in ipairs(v) do
+				value[i]  = {}
+				value[i].pop = {}
+				value[i].output = {}
+				value[i].input = {}
+				local text
+				local toN
+				for ii,vvv in ipairs(vv.pop) do
+					value[i].pop[ii] = {}
+					for kk,vvvv in pairs(vvv) do
+						text = string.trim(vvvv:getText())
+						toN = tonumber(text)
+						if toN then
+							value[i].pop[ii][kk] = toN
+						else
+							value[i].pop[ii][kk] = text
+						end
+					end
+				end
+
+				for ii,vvv in ipairs(vv.input) do
+					value[i].input[ii] = {}
+					for kk,vvvv in pairs(vvv) do
+						text = string.trim(vvvv:getText())
+						toN = tonumber(text)
+						if toN then
+							value[i].input[ii][kk] = toN
+						else
+							value[i].input[ii][kk] = text
+						end
+					end
+				end
+
+				for ii,vvv in ipairs(vv.output) do
+					value[i].output[ii] = {}
+					for kk,vvvv in pairs(vvv) do
+						text = string.trim(vvvv:getText())
+						toN = tonumber(text)
+						if toN then
+							value[i].output[ii][kk] = toN
+						else
+							value[i].output[ii][kk] = text
+						end
+					end
+				end
+			end
+			
+			ConfigMgr.setConfig(k,value)
 		end
 	end
 end
